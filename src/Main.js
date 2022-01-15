@@ -70,8 +70,7 @@ export const Main = () => {
             <Route path="/edit_activity/:activityId" exact element={<EditAct activities={activities} token={token} />}/>
             <Route path="/add_activitytoroutine"exact element={<AddActtoRout action="AddActtoRout" token={token} userData = {userData} routines = {routines} />}/>
             <Route path="/activities" exact element={<AllActivities activities={activities}  userData={userData} token={token} />}/>
-            <Route path="/register" exact element={<AccountForm action="register" setToken={setToken} />}/>
-            <Route path="/login" exact element={<AccountForm action="login" setToken={setToken} />}/>
+            <Route path="/account/:action" exact element={<AccountForm setToken={setToken} />}/>
             <Route path="/routines/:routineId"exact element={<AllRoutines routines={routines} />}/>
             <Route path="/create_routine/" exact element={<CreateRout action="routine" token={token} />}/>
             <Route path="/edit_routine/:routineId" exact element={<EditRout routine={routines} token={token} />}/>
