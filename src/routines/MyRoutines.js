@@ -1,15 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { callApi } from '../api';
 import {MyRoutine} from '../routines'
 
-
-const MyRoutines = ({username, myRoutine, token, userData}) => {
+const MyRoutines = ({token, userData}) => {
     console.log(userData)
     const [myRoutines, setMyRoutines] = useState([]);
-    const navigate = useNavigate();
 
-const fetchMyRoutines = async (username, token) => {
+    const fetchMyRoutines = async (username, token) => {
         const myRoutines = await callApi({
             url: `/users/${username}/routines`,
             method: 'GET',
@@ -17,7 +15,8 @@ const fetchMyRoutines = async (username, token) => {
         });
         return myRoutines;
     };
-useEffect(async () => {
+
+    useEffect(async () => {
         if (userData && userData.username) {
             const fetchedMyRoutines = await fetchMyRoutines(userData.username, token);
             console.log("Fetched My Routines", fetchedMyRoutines)
@@ -25,39 +24,34 @@ useEffect(async () => {
         }
     },[userData]);
 
-return (
- <>
-    <button className="LargeButton">
-        <Link to="/">Home</Link>
-            </button>
-    <div><h2>My Routines</h2></div>
+    return (<>
+        <button className="LargeButton">
+            <Link to="/">Home</Link>
+        </button>
+        <div><h2>My Routines</h2></div>
 
-    
-    <div id = "RoutineContainer"> 
-    {/* {myRoutines?.map((myRoutine) => (
-        <div key={myRoutine.id}>
-            <MyRoutine myRoutines={myRoutines} myRoutine={myRoutine} />
-            {<button>
-                <Link to={`/edit_routine/${myRoutine.id}`}>Edit Routine</Link>
-            </button>}
+        <div id = "RoutineContainer"> 
+        {/* {myRoutines?.map((myRoutine) => (
+            <div key={myRoutine.id}>
+                <MyRoutine myRoutines={myRoutines} myRoutine={myRoutine} />
+                {<button>
+                    <Link to={`/edit_routine/${myRoutine.id}`}>Edit Routine</Link>
+                </button>}
+            </div>
+                
+        ))} */}
+        
+        {myRoutines.map((myRoutine) => {
+            return <div key={myRoutine.id}>
+                <MyRoutine myRoutines={myRoutines} myRoutine={myRoutine} />
+                <button>
+                    <Link to={`/edit_routine/${myRoutine.id}`}>Edit Routine</Link>
+                </button>
+            </div>
+        })}
         </div>
-            
-    ))} */}
-    
-    {myRoutines.map((myRoutine) => {
-        return <div key={myRoutine.id}>
-            <div>{myRoutine.id}</div>
-        <MyRoutine myRoutines={myRoutines} myRoutine={myRoutine} />
-            {<button>
-                <Link to={`/edit_routine/${myRoutine.id}`}>Edit Routine</Link>
-            </button>}
-        </div>})}
-    </div>
-    </>
-    );
-    };
-
-
+    </>);
+};
 
 
 export default MyRoutines;

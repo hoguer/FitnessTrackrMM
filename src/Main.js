@@ -65,7 +65,7 @@ export const Main = () => {
             <Route path="/routines" exact element={ <AllRoutines routines={routines} token={token} userData = {userData} />}/>
             <Route path="/routine" exact element={<Routine routines={routines} token={token} userData = {userData} />}/>
             <Route path="/my_routine" exact element={ <MyRoutine token={token} userData = {userData} />}/>
-            <Route path="/my_routines" exact element={ <MyRoutines  token={token} userData = {userData} />}/>
+            <Route path="/my_routines" exact element={ <MyRoutines token={token} userData={userData} />}/>
             <Route path="/edit_routine/:routineId" exact element={<EditRout routines={routines} token={token} />}/>
             <Route path="/edit_activity/:activityId" exact element={<EditAct activities={activities} token={token} />}/>
             <Route path="/add_activitytoroutine"exact element={<AddActtoRout action="AddActtoRout" token={token} userData = {userData} routines = {routines} />}/>
