@@ -14,86 +14,70 @@ export const Main = () => {
     const navigate = useNavigate();
     const isLoggedIn = userData.username !== undefined;
 
-
     const onLogOutClick = () => {
         localStorage.removeItem('st-token');
         setToken('');
         setUserData({});
         navigate('/')
-};
+    };
 
-const fetchUserData = async (token) => {
-    const data  = await callApi({
-        url: '/users/me',
-        token,
- });
-    return data;
-};
+    const fetchUserData = async (token) => {
+        const data  = await callApi({
+            url: '/users/me',
+            token,
+        });
+        return data;
+    };
 
 
-useEffect(async () => {
-    if (!token) {
-        setToken(localStorage.getItem('st-token'));
-        return;
-    }
-    const data = await fetchUserData(token);
-    setUserData(data);
-}, [token]);
-console.log("userData", userData)
-console.log("isLoggedIn", isLoggedIn)
+    useEffect(async () => {
+        if (!token) {
+            setToken(localStorage.getItem('st-token'));
+            return;
+        }
+        const data = await fetchUserData(token);
+        setUserData(data);
+    }, [token]);
 
-return (
-<>
-        
-{!isLoggedIn ?
-<h1>Welcome to Fitness Trackr</h1>
-:  ""} 
+    return (<>
+        {!isLoggedIn && <h1>Welcome to Fitness Trackr</h1>}
 
-{isLoggedIn ? (
-<>
-<div id ="Greeting">WELCOME, {userData.username}!</div>
-    <button className="my-routine-button"><Link to="/my_routines">MY Routines</Link></button>
-    <button className="routines-button"><Link to="/routines">Routines</Link></button>
-    <button className="add-routine-button"><Link to="/create_routine">Add Routine</Link></button>
-    <button className="activities-button"><Link to="/activities">Activities</Link></button>
-    <button className="add-activity-button"><Link to="/create_activity">Add Activity</Link></button>
-<div></div>
-    <button className="logout-button" onClick={onLogOutClick}>Log Out</button>
-   
-</>
-)   
-: ( 
-    <>
-    <button className="register-button"><Link to="/register">Register</Link></button>
-    <button className="login-button"><Link to="/login">Login</Link></button>
-<div></div>
-<br></br>
-    <button className="routines-button"><Link to="/routines">Routines</Link></button>
-    <button className="activities-button"><Link to="/activities">Activities</Link></button>
-</>
-)}
+        {isLoggedIn ? (<>
+            <div id ="Greeting">WELCOME, {userData.username}!</div>
+            <button className="my-routine-button"><Link to="/my_routines">MY Routines</Link></button>
+            <button className="routines-button"><Link to="/routines">Routines</Link></button>
+            <button className="add-routine-button"><Link to="/create_routine">Add Routine</Link></button>
+            <button className="activities-button"><Link to="/activities">Activities</Link></button>
+            <button className="add-activity-button"><Link to="/create_activity">Add Activity</Link></button>
+            <button className="logout-button" onClick={onLogOutClick}>Log Out</button>
+        </>)
+        : ( <>
+            <button className="register-button"><Link to="/register">Register</Link></button>
+            <button className="login-button"><Link to="/login">Login</Link></button>
+            <br></br>
+            <button className="routines-button"><Link to="/routines">Routines</Link></button>
+            <button className="activities-button"><Link to="/activities">Activities</Link></button>
+        </>)}
 
-<Routes>
-    <Route path="/create_routine" exact element={<CreateRout action="Create Routine" token={token}/>}/>
-    <Route path="/create_activity" exact element={<CreateAct action="Create Activity" token={token} />}/>
-    <Route path="/routines" exact element={ <AllRoutines routines={routines} token={token} userData = {userData} />}/>
-    <Route path="/routine" exact element={<Routine routines={routines} token={token} userData = {userData} />}/>
-    <Route path="/my_routine" exact element={ <MyRoutine token={token} userData = {userData} />}/>
-    <Route path="/my_routines" exact element={ <MyRoutines  token={token} userData = {userData} />}/>
-    <Route path="/edit_routine/:routineId" exact element={<EditRout routines={routines} token={token} />}/>
-    <Route path="/edit_activity/:activityId" exact element={<EditAct activities={activities} token={token} />}/>
-    <Route path="/add_activitytoroutine"exact element={<AddActtoRout action="AddActtoRout" token={token} userData = {userData} routines = {routines} />}/>
-    
-    <Route path="/activities" exact element={<AllActivities activities={activities}  userData={userData} token={token} />}/>
-    <Route path="/register" exact element={<AccountForm action="register" setToken={setToken} />}/>
-    <Route path="/login" exact element={<AccountForm action="login" setToken={setToken} />}/>
-    <Route path="/routines/:routineId"exact element={<AllRoutines routines={routines} />}/>
-    <Route path="/create_routine/" exact element={<CreateRout action="routine" token={token} />}/>
-    <Route path="/edit_routine/:routineId" exact element={<EditRout routine={routines} token={token} />}/>
-    
-</Routes>
-</>
-);
+        <Routes>
+            <Route path="/create_routine" exact element={<CreateRout action="Create Routine" token={token}/>}/>
+            <Route path="/create_activity" exact element={<CreateAct action="Create Activity" token={token} />}/>
+            <Route path="/routines" exact element={ <AllRoutines routines={routines} token={token} userData = {userData} />}/>
+            <Route path="/routine" exact element={<Routine routines={routines} token={token} userData = {userData} />}/>
+            <Route path="/my_routine" exact element={ <MyRoutine token={token} userData = {userData} />}/>
+            <Route path="/my_routines" exact element={ <MyRoutines  token={token} userData = {userData} />}/>
+            <Route path="/edit_routine/:routineId" exact element={<EditRout routines={routines} token={token} />}/>
+            <Route path="/edit_activity/:activityId" exact element={<EditAct activities={activities} token={token} />}/>
+            <Route path="/add_activitytoroutine"exact element={<AddActtoRout action="AddActtoRout" token={token} userData = {userData} routines = {routines} />}/>
+            <Route path="/activities" exact element={<AllActivities activities={activities}  userData={userData} token={token} />}/>
+            <Route path="/register" exact element={<AccountForm action="register" setToken={setToken} />}/>
+            <Route path="/login" exact element={<AccountForm action="login" setToken={setToken} />}/>
+            <Route path="/routines/:routineId"exact element={<AllRoutines routines={routines} />}/>
+            <Route path="/create_routine/" exact element={<CreateRout action="routine" token={token} />}/>
+            <Route path="/edit_routine/:routineId" exact element={<EditRout routine={routines} token={token} />}/>
+        </Routes>
+    </>
+    );
 };
 
 export default Main;
