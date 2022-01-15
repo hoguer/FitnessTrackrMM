@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Route, Routes, BrowserRouter as Router, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import { callApi } from './api/index';
 import { AllRoutines, CreateRout, EditRout, Routine, MyRoutines, MyRoutine } from './routines';
-import { AllActivities, CreateAct, EditAct, Activity, AddActtoRout } from './activities';
-import {AccountForm} from "./account/AccountForm"
+import { AllActivities, CreateAct, EditAct, AddActtoRout } from './activities';
+import { AccountForm } from "./account/AccountForm"
 import './Main.css'
 
 export const Main = () => {
@@ -11,7 +11,6 @@ export const Main = () => {
     const [userData, setUserData] = useState({});
     const [activities, setActivities] = useState([]);
     const [routines, setRoutines] = useState([]);
-    const [myRoutines, setMyRoutines] = useState([]);
     const navigate = useNavigate();
     const isLoggedIn = userData.username !== undefined;
 
