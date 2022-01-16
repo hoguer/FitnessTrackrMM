@@ -52,8 +52,8 @@ export const Main = () => {
             <button className="logout-button" onClick={onLogOutClick}>Log Out</button>
         </>)
         : ( <>
-            <button className="register-button"><Link to="/register">Register</Link></button>
-            <button className="login-button"><Link to="/login">Login</Link></button>
+            <button className="register-button"><Link to="/account/register">Register</Link></button>
+            <button className="login-button"><Link to="/account/login">Login</Link></button>
             <br></br>
             <button className="routines-button"><Link to="/routines">Routines</Link></button>
             <button className="activities-button"><Link to="/activities">Activities</Link></button>
@@ -71,7 +71,7 @@ export const Main = () => {
             <Route path="/add_activitytoroutine"exact element={<AddActtoRout action="AddActtoRout" token={token} userData = {userData} routines = {routines} />}/>
             <Route path="/activities" exact element={<AllActivities activities={activities}  userData={userData} token={token} />}/>
             <Route path="/account/:action" exact element={<AccountForm setToken={setToken} />}/>
-            <Route path="/routines/:routineId"exact element={<AllRoutines routines={routines} />}/>
+            <Route path="/routines/:routineId" exact element={<AllRoutines routines={routines} />}/>
             <Route path="/create_routine/" exact element={<CreateRout action="routine" token={token} />}/>
             <Route path="/edit_routine/:routineId" exact element={<EditRout routine={routines} token={token} />}/>
         </Routes>

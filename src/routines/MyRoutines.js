@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { callApi } from '../api';
-import {MyRoutine} from '../routines'
+import { MyRoutine } from '.';
 
 const MyRoutines = ({token, userData}) => {
     console.log(userData)
@@ -11,7 +11,7 @@ const MyRoutines = ({token, userData}) => {
         const myRoutines = await callApi({
             url: `/users/${username}/routines`,
             method: 'GET',
-            token,
+            token
         });
         return myRoutines;
     };
@@ -22,35 +22,26 @@ const MyRoutines = ({token, userData}) => {
             console.log("Fetched My Routines", fetchedMyRoutines)
             setMyRoutines(fetchedMyRoutines);
         }
-    },[userData]);
+    },[]);
 
-    return (<>
+    return <>
         <button className="LargeButton">
             <Link to="/">Home</Link>
         </button>
-        <div><h2>My Routines</h2></div>
+        <h2>My Routines</h2>
 
         <div id = "RoutineContainer"> 
-        {/* {myRoutines?.map((myRoutine) => (
-            <div key={myRoutine.id}>
-                <MyRoutine myRoutines={myRoutines} myRoutine={myRoutine} />
-                {<button>
-                    <Link to={`/edit_routine/${myRoutine.id}`}>Edit Routine</Link>
-                </button>}
-            </div>
-                
-        ))} */}
-        
-        {myRoutines.map((myRoutine) => {
-            return <div key={myRoutine.id}>
-                <MyRoutine myRoutines={myRoutines} myRoutine={myRoutine} />
-                <button>
-                    <Link to={`/edit_routine/${myRoutine.id}`}>Edit Routine</Link>
-                </button>
-            </div>
-        })}
+            {myRoutines.map((routine) => {
+                console.log("RACHEL", routine);
+                return (<div key={routine.id}>
+                    <MyRoutine routine={routine} />
+                    <button>
+                        <Link to={`/edit_routine/${routine.id}`}>Edit Routine</Link>
+                    </button>
+                </div>)
+            })}
         </div>
-    </>);
+    </>;
 };
 
 
