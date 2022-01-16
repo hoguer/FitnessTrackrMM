@@ -31,7 +31,6 @@ const MyRoutines = ({token, userData}) => {
 
         <div id = "RoutineContainer"> 
             {myRoutines.map((routine) => {
-                console.log("RACHEL", routine);
                 return (<div key={routine.id}>
                     <MyRoutine routine={routine} />
                     <button>
