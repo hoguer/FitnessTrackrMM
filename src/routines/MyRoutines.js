@@ -4,7 +4,6 @@ import { callApi } from '../api';
 import { MyRoutine } from '.';
 
 const MyRoutines = ({token, userData}) => {
-    console.log(userData)
     const [myRoutines, setMyRoutines] = useState([]);
 
     const fetchMyRoutines = async (username, token) => {
@@ -22,7 +21,7 @@ const MyRoutines = ({token, userData}) => {
             console.log("Fetched My Routines", fetchedMyRoutines)
             setMyRoutines(fetchedMyRoutines);
         }
-    },[]);
+    },[userData]);
 
     return <>
         <button className="LargeButton">
